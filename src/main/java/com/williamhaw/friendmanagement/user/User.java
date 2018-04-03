@@ -24,6 +24,11 @@ public interface User {
 	public Set<String> getFriends();
 	
 	/**
+	 * @param friendEmail
+	 */
+	public void addFriend(String friendEmail);
+	
+	/**
 	 * @param friends
 	 */
 	public void addFriends(Set<String> friends);

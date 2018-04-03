@@ -39,6 +39,11 @@ public class DefaultUser implements User{
 	}
 
 	@Override
+	public void addFriend(String friendEmail) {
+		friends.add(friendEmail);		
+	}
+	
+	@Override
 	public void addFriends(Set<String> friends) {
 		this.friends.addAll(friends);
 	}
@@ -67,4 +72,6 @@ public class DefaultUser implements User{
 			return false;
 		return true;
 	}
+
+	
 }
