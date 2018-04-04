@@ -24,6 +24,7 @@ public class ActionHandler {
 		GET_FRIENDS,
 		COMMON_FRIENDS,
 		BLOCK_USER,
+		SUBSCRIBE_USER,
 	}
 	
 	/**
@@ -34,6 +35,7 @@ public class ActionHandler {
 	private AddUserAction addUser;
 	private GetCommonFriendsAction getCommonFriends;
 	private BlockUserAction blockUser;
+	private SubscribeUpdatesAction subscribeUpdates;
 	
 	/*
 	 * JSON keys
@@ -51,6 +53,7 @@ public class ActionHandler {
 		addUser = new AddUserAction(persistence);
 		getCommonFriends = new GetCommonFriendsAction(persistence);
 		blockUser = new BlockUserAction(persistence);
+		subscribeUpdates = new SubscribeUpdatesAction(persistence);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -123,6 +126,15 @@ public class ActionHandler {
 				String target = request.get(KEY_TARGET).toString();
 				
 				success = blockUser.handle(requestor, target);
+			}else {
+				success = false;
+			}
+		case SUBSCRIBE_USER:
+			if(request.get(KEY_REQUESTOR) != null && request.get(KEY_TARGET) != null) {
+				String requestor = request.get(KEY_REQUESTOR).toString();
+				String target = request.get(KEY_TARGET).toString();
+				
+				success = subscribeUpdates.handle(requestor, target);
 			}else {
 				success = false;
 			}

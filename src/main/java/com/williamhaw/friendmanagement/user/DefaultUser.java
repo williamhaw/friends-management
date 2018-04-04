@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * This class represents a default User that only has an email, 
- * Set<String> of friend emails and Set<String> of blocked emails
+ * This class represents a default User that contains an email, 
+ * Set<String> of friend emails, Set<String> of blocked emails
  * <p>
  * User is defined by their unique email address.
  * @author williamhaw
@@ -15,6 +15,7 @@ public class DefaultUser implements User{
 	private String email;
 	private Set<String> friends = new HashSet<>();
 	private Set<String> blocked = new HashSet<>();
+	private Set<String> subscribers = new HashSet<>();
 	
 	public DefaultUser(String email) {
 		this.email = email;
@@ -65,6 +66,16 @@ public class DefaultUser implements User{
 		this.blocked.addAll(toBlock);
 	}
 
+	@Override
+	public Set<String> getSubscribers() {
+		return subscribers;
+	}
+
+	@Override
+	public void addSubscriber(String subscriber) {
+		this.subscribers.add(subscriber);		
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

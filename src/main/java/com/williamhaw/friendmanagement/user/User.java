@@ -47,4 +47,14 @@ public interface User {
 	 * @param toBlock
 	 */
 	public void addBlocked(Set<String> toBlock);
+	
+	/**
+	 * @return empty Set if no users have subscribed to this user
+	 */
+	public Set<String> getSubscribers();
+	
+	/**
+	 * @param subscriber
+	 */
+	public void addSubscriber(String subscriber);
 }
