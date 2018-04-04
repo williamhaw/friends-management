@@ -28,8 +28,14 @@ public class AddFriendAction {
 					return false;
 				}
 				for (String email : toBeFriendsEmails) {
-					if(!toAddFriends.getEmail().equals(email)) //don't add user to its own friends list
+					User newFriend = persistence.lookup(email);
+					if(newFriend != null && newFriend.getBlocked().contains(toAddFriends.getEmail())) { //don't add connection if other user has blocked toAddFriends
+						continue;
+					}
+					if(!toAddFriends.getEmail().equals(email) && //don't add user to its own friends list
+							!toAddFriends.getBlocked().contains(email)) { //don't add friend if blocked
 						toAddFriends.addFriend(email);
+					}
 				}
 				persistence.update(toAddFriends);
 			}

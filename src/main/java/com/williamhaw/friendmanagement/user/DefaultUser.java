@@ -4,7 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * This class represents a default User that only has an email and a Set of friends
+ * This class represents a default User that only has an email, 
+ * Set<String> of friend emails and Set<String> of blocked emails
  * <p>
  * User is defined by their unique email address.
  * @author williamhaw
@@ -13,6 +14,7 @@ import java.util.Set;
 public class DefaultUser implements User{
 	private String email;
 	private Set<String> friends = new HashSet<>();
+	private Set<String> blocked = new HashSet<>();
 	
 	public DefaultUser(String email) {
 		this.email = email;
@@ -46,6 +48,21 @@ public class DefaultUser implements User{
 	@Override
 	public void addFriends(Set<String> friends) {
 		this.friends.addAll(friends);
+	}
+	
+	@Override
+	public Set<String> getBlocked() {
+		return blocked;
+	}
+
+	@Override
+	public void addBlocked(String toBlock) {
+		this.blocked.add(toBlock);
+	}
+	
+	@Override
+	public void addBlocked(Set<String> toBlock) {
+		this.blocked.addAll(toBlock);
 	}
 
 	@Override
@@ -84,9 +101,14 @@ public class DefaultUser implements User{
 			sb.append(", ");
 		}
 		sb.append("]");
+		sb.append(", blocked=[");
+		for(String b : blocked) {
+			sb.append(b);
+			sb.append(", ");
+		}
+		sb.append("]");
 		sb.append("]");
 		
 		return sb.toString();
 	}
-	
 }

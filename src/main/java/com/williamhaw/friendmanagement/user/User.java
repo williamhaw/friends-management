@@ -32,4 +32,19 @@ public interface User {
 	 * @param friends
 	 */
 	public void addFriends(Set<String> friends);
+	
+	/**
+	 * @return empty Set if user has not blocked any other users
+	 */
+	public Set<String> getBlocked();
+	
+	/**
+	 * @param toBlock
+	 */
+	public void addBlocked(String toBlock);
+	
+	/**
+	 * @param toBlock
+	 */
+	public void addBlocked(Set<String> toBlock);
 }
