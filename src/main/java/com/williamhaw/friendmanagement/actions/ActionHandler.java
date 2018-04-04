@@ -25,6 +25,7 @@ public class ActionHandler {
 		COMMON_FRIENDS,
 		BLOCK_USER,
 		SUBSCRIBE_USER,
+		GET_RECIPIENTS,
 	}
 	
 	/**
@@ -36,6 +37,7 @@ public class ActionHandler {
 	private GetCommonFriendsAction getCommonFriends;
 	private BlockUserAction blockUser;
 	private SubscribeUpdatesAction subscribeUpdates;
+	private GetRecipientsAction getRecipients;
 	
 	/*
 	 * JSON keys
@@ -46,6 +48,9 @@ public class ActionHandler {
 	public static final String KEY_COUNT = "count";
 	public static final String KEY_REQUESTOR = "requestor";
 	public static final String KEY_TARGET = "target";
+	public static final String KEY_SENDER = "sender";
+	public static final String KEY_TEXT = "text";
+	public static final String KEY_RECIPIENTS = "recipients";
 	
 	public ActionHandler(UserPersistence persistence) {		
 		addFriend = new AddFriendAction(persistence);
@@ -54,6 +59,7 @@ public class ActionHandler {
 		getCommonFriends = new GetCommonFriendsAction(persistence);
 		blockUser = new BlockUserAction(persistence);
 		subscribeUpdates = new SubscribeUpdatesAction(persistence);
+		getRecipients = new GetRecipientsAction(persistence);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -135,6 +141,17 @@ public class ActionHandler {
 				String target = request.get(KEY_TARGET).toString();
 				
 				success = subscribeUpdates.handle(requestor, target);
+			}else {
+				success = false;
+			}
+		case GET_RECIPIENTS:
+			if(request.get(KEY_SENDER) != null && request.get(KEY_TEXT) != null) {
+				String sender = request.get(KEY_SENDER).toString();
+				String text = request.get(KEY_TEXT).toString();
+				
+				Set<String> recipients = getRecipients.handle(sender, text);
+				ret.put(KEY_RECIPIENTS, recipients);
+				success = true;
 			}else {
 				success = false;
 			}
