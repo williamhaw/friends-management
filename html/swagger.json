@@ -1,0 +1,223 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "friend-management-api documentation",
+    "version" : "0.1",
+    "title" : "friend-management-api"
+  },
+  "paths" : {
+    "/api/v1/addUser" : {
+      "post" : {
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/addUser"
+          },
+          "x-examples" : {
+            "application/json" : "{\n  \"email\":\"user3@williamhaw.com\"\n}\n"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "Definition generated from Swagger Inspector"
+          }
+        }
+      }
+    },
+    "/api/v1/addFriends" : {
+      "post" : {
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/addFriends"
+          },
+          "x-examples" : {
+            "application/json" : "{\n  \"friends\":\n    [\n      \"user1@williamhaw.com\",\n      \"user2@williamhaw.com\"\n    ]\n}\n"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "Definition generated from Swagger Inspector"
+          }
+        }
+      }
+    },
+    "/api/v1/getFriends" : {
+      "post" : {
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/getFriends"
+          },
+          "x-examples" : {
+            "application/json" : "{\n  \"email\":\"user3@williamhaw.com\"\n}\n"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "Definition generated from Swagger Inspector"
+          }
+        }
+      }
+    },
+    "/api/v1/commonFriends" : {
+      "post" : {
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/commonFriends"
+          },
+          "x-examples" : {
+            "application/json" : "{\n  \"friends\":\n    [\n      \"user1@williamhaw.com\",\n      \"user2@williamhaw.com\"\n    ]\n}\n"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "Definition generated from Swagger Inspector"
+          }
+        }
+      }
+    },
+    "/api/v1/subscribeUser" : {
+      "post" : {
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/subscribe"
+          },
+          "x-examples" : {
+            "application/json" : "{\n  \"requestor\": \"user1@williamhaw.com\",\n  \"target\": \"user2@williamhaw.com\"\n}\n"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "Definition generated from Swagger Inspector"
+          }
+        }
+      }
+    },
+    "/api/v1/blockUser" : {
+      "post" : {
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/block"
+          },
+          "x-examples" : {
+            "application/json" : "{\n  \"requestor\": \"user1@williamhaw.com\",\n  \"target\": \"user2@williamhaw.com\"\n}\n"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "Definition generated from Swagger Inspector"
+          }
+        }
+      }
+    },
+    "/api/v1/getRecipients" : {
+      "post" : {
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/recipients"
+          },
+          "x-examples" : {
+            "application/json" : "{\n  \"sender\":  \"user2@example.com\",\n  \"text\": \"Welcome user3@williamhaw.com and user4@williamhaw.com\"\n}\n\n"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "Definition generated from Swagger Inspector"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "recipients" : {
+      "properties" : {
+        "sender" : {
+          "type" : "string"
+        },
+        "text" : {
+          "type" : "string"
+        }
+      }
+    },
+    "addFriends" : {
+      "properties" : {
+        "friends" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "commonFriends" : {
+      "properties" : {
+        "friends" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "addUser" : {
+      "properties" : {
+        "email" : {
+          "type" : "string"
+        }
+      }
+    },
+    "getFriends" : {
+      "properties" : {
+        "email" : {
+          "type" : "string"
+        }
+      }
+    },
+    "subscribe" : {
+      "properties" : {
+        "requestor" : {
+          "type" : "string"
+        },
+        "target" : {
+          "type" : "string"
+        }
+      }
+    },
+    "block" : {
+      "properties" : {
+        "requestor" : {
+          "type" : "string"
+        },
+        "target" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
