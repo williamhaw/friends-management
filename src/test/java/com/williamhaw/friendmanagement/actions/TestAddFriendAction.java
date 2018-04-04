@@ -43,9 +43,11 @@ public class TestAddFriendAction {
 			
 			User user1 = persistence.lookup("friend1@williamhaw.com");
 			assertTrue(user1.getFriends().contains("friend2@williamhaw.com"));
+			assertTrue(user1.getFriends().size() == 1);
 			
 			User user2 = persistence.lookup("friend2@williamhaw.com");
 			assertTrue(user2.getFriends().contains("friend1@williamhaw.com"));
+			assertTrue(user2.getFriends().size() == 1);
 			
 		} catch (PersistenceException e) {
 			e.printStackTrace();

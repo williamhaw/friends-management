@@ -24,8 +24,12 @@ public class AddFriendAction {
 		try {
 			for (String lookupEmail : toBeFriendsEmails) {
 				User toAddFriends = persistence.lookup(lookupEmail);
+				if(toAddFriends == null) {
+					return false;
+				}
 				for (String email : toBeFriendsEmails) {
-					toAddFriends.addFriend(email);
+					if(!toAddFriends.getEmail().equals(email)) //don't add user to its own friends list
+						toAddFriends.addFriend(email);
 				}
 				persistence.update(toAddFriends);
 			}
