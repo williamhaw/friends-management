@@ -100,7 +100,7 @@ public class ActionHandler {
 				String email = (String)request.get(KEY_EMAIL);				
 				Set<String> friends = getFriends.getFriends(email);
 				if(friends != null) {
-					ret.put(KEY_FRIENDS, friends);
+					ret.put(KEY_FRIENDS, fromSet(friends));
 					ret.put(KEY_COUNT, friends.size());
 					success = true;
 				}else {
@@ -119,7 +119,7 @@ public class ActionHandler {
 						friends.add(email.toString());
 					}
 					Set<String> commonFriends = getCommonFriends.handle(friends.get(0), friends.get(1));
-					ret.put(KEY_FRIENDS, commonFriends);
+					ret.put(KEY_FRIENDS, fromSet(commonFriends));
 					ret.put(KEY_COUNT, commonFriends.size());
 					success = true;					
 				}else {
@@ -150,7 +150,7 @@ public class ActionHandler {
 				String text = request.get(KEY_TEXT).toString();
 				
 				Set<String> recipients = getRecipients.handle(sender, text);
-				ret.put(KEY_RECIPIENTS, recipients);
+				ret.put(KEY_RECIPIENTS, fromSet(recipients));
 				success = true;
 			}else {
 				success = false;
@@ -164,5 +164,13 @@ public class ActionHandler {
 		return ret;		
 	}
 	
+	@SuppressWarnings("unchecked")
+	private JSONArray fromSet(Set<String> data) {
+		JSONArray ret = new JSONArray();
+		for(String d : data) {
+			ret.add(d);
+		}
+		return ret;
+	}
 	
 }
