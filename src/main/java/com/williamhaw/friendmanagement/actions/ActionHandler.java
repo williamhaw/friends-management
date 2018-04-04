@@ -1,5 +1,6 @@
 package com.williamhaw.friendmanagement.actions;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,9 +19,10 @@ import com.williamhaw.friendmanagement.persistence.UserPersistence;
 public class ActionHandler {
 
 	public enum Actions{
+		ADD_USER,
 		ADD_FRIENDS,
 		GET_FRIENDS,
-		ADD_USER
+		COMMON_FRIENDS,
 	}
 	
 	/**
@@ -29,6 +31,7 @@ public class ActionHandler {
 	private AddFriendAction addFriend;
 	private GetFriendsAction getFriends;
 	private AddUserAction addUser;
+	private GetCommonFriendsAction getCommonFriends;
 	
 	/*
 	 * JSON keys
@@ -42,6 +45,7 @@ public class ActionHandler {
 		addFriend = new AddFriendAction(persistence);
 		getFriends = new GetFriendsAction(persistence);
 		addUser = new AddUserAction(persistence);
+		getCommonFriends = new GetCommonFriendsAction(persistence);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -52,6 +56,19 @@ public class ActionHandler {
 		
 		
 		switch (action) {
+		case ADD_USER:
+			if(request.get(KEY_EMAIL) != null) {
+				String email = (String)request.get(KEY_EMAIL);
+				Set<String> friends = new HashSet<>();
+				if(request.get(KEY_FRIENDS) != null) {
+					JSONArray friendsArray = (JSONArray)request.get(KEY_FRIENDS);
+					for(Object friendEmail : friendsArray) {
+						friends.add(friendEmail.toString());
+					}
+				}				
+				success = addUser.addUser(email, friends);
+			}
+			break;
 		case ADD_FRIENDS:
 			if(request.get(KEY_FRIENDS) != null) {
 				JSONArray friendsArray = (JSONArray)request.get(KEY_FRIENDS);
@@ -79,19 +96,22 @@ public class ActionHandler {
 				success = false;
 			}
 			break;
-		case ADD_USER:
-			if(request.get(KEY_EMAIL) != null) {
-				String email = (String)request.get(KEY_EMAIL);
-				Set<String> friends = new HashSet<>();
-				if(request.get(KEY_FRIENDS) != null) {
-					JSONArray friendsArray = (JSONArray)request.get(KEY_FRIENDS);
-					for(Object friendEmail : friendsArray) {
-						friends.add(friendEmail.toString());
+		case COMMON_FRIENDS:
+			if(request.get(KEY_FRIENDS) != null) {
+				JSONArray friendsArray = (JSONArray)request.get(KEY_FRIENDS);
+				if(friendsArray.size() == 2) {
+					ArrayList<String> friends = new ArrayList<>();
+					for(Object email : friendsArray) {
+						friends.add(email.toString());
 					}
-				}				
-				success = addUser.addUser(email, friends);
+					Set<String> commonFriends = getCommonFriends.handle(friends.get(0), friends.get(1));
+					ret.put(KEY_FRIENDS, commonFriends);
+					ret.put(KEY_COUNT, commonFriends.size());
+					success = true;					
+				}else {
+					success = false;
+				}
 			}
-			break;
 		default:
 			break;
 		}
