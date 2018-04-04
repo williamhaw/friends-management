@@ -21,17 +21,19 @@ public class GetFriendsAction {
 
 	/**
 	 * @param email
-	 * @return null on PersistenceException, else returns Set<String> of friend emails
+	 * @return null on PersistenceException or when user is not found, else returns Set<String> of friend emails
 	 */
 	public Set<String> getFriends(String email) {
 		
 		try {
 			User user = persistence.lookup(email);
-			return user.getFriends();
+			if(user != null) {
+				return user.getFriends();
+			}
 		}catch (PersistenceException e) {
 			e.printStackTrace();
-			return null;
 		}
+		return null;
 	}
 
 }
