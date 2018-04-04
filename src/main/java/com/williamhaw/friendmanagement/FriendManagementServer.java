@@ -2,7 +2,10 @@ package com.williamhaw.friendmanagement;
 
 import java.util.Map;
 
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
@@ -23,6 +26,7 @@ public class FriendManagementServer {
 	public final static String CONTEXT_PATH = "context.path";
 	public final static String ROUTE_PREFIX = "route.";
 	public final static String PERSISTENCE_CLASS = "persistence.class";
+	public final static String RESOURCE_BASE = "resource.base";
 	
 	PropertiesHelper props;
 
@@ -33,10 +37,17 @@ public class FriendManagementServer {
 	public void start() {
 		try {
 			Server jettyServer = new Server(props.getInt(SERVER_PORT, 8080));
+			
+			ResourceHandler resourceHandler = new ResourceHandler();
+	        resourceHandler.setDirectoriesListed(true);
+	        resourceHandler.setResourceBase(props.getString(RESOURCE_BASE, "html"));
 
 			ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 			context.setContextPath(props.getString(CONTEXT_PATH, "/api/v1/"));
-			jettyServer.setHandler(context);
+			
+			HandlerList handlers = new HandlerList();
+			handlers.setHandlers(new Handler[] {resourceHandler, context});
+			jettyServer.setHandler(handlers);
 			
 			Map<String, String> routeMap = props.getStrings(ROUTE_PREFIX);
 			
@@ -57,7 +68,7 @@ public class FriendManagementServer {
 					e.printStackTrace();
 				}				
 			}
-			
+		    
 			jettyServer.start();
 			jettyServer.join();
 		}catch (Exception e) {

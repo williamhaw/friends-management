@@ -40,6 +40,7 @@ public class FriendManagementServlet extends HttpServlet {
 			JSONObject ret = handler.handle(action, jsonObject);
 			
 			resp.getOutputStream().println(ret.toJSONString());
+			resp.setContentType("application/json");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
