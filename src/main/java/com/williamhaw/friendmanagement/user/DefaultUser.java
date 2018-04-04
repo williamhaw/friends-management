@@ -73,5 +73,20 @@ public class DefaultUser implements User{
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("DefaultUser [email=");
+		sb.append(email);
+		sb.append(", friends=[");
+		for(String friend : friends) {
+			sb.append(friend);
+			sb.append(", ");
+		}
+		sb.append("]");
+		sb.append("]");
+		
+		return sb.toString();
+	}
 	
 }
