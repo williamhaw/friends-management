@@ -118,6 +118,12 @@ public class DefaultUser implements User{
 			sb.append(", ");
 		}
 		sb.append("]");
+		sb.append(", subscribers=[");
+		for(String s : subscribers) {
+			sb.append(s);
+			sb.append(", ");
+		}
+		sb.append("]");
 		sb.append("]");
 		
 		return sb.toString();
