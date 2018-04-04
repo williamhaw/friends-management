@@ -49,7 +49,7 @@ public class FriendManagementServer {
 					FriendManagementServlet servlet = new FriendManagementServlet(action, handler);
 					holder.setServlet(servlet);
 					context.addServlet(holder, "/" + route);
-				} catch (IllegalArgumentException e) {
+				} catch (IllegalArgumentException e) { //catches config error where value is not in the ActionHandler.Actions enum and continues setting up other servlets
 					e.printStackTrace();
 				}				
 			}
