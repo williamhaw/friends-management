@@ -36,7 +36,7 @@ public class TestSubscribeUpdatesAction {
 	@Test
 	public void successCase() {
 		action.handle(friend1.getEmail(), friend2.getEmail());
-		assertTrue(friend2.getSubscribers().contains(friend1.getEmail())); //check friend1 subscribed to friend2
+		assertTrue(friend2.getSubscribers().contains(friend1.getEmail())); //check friend1 is subscribed to friend2
 		
 		action.handle(friend2.getEmail(), friend3.getEmail());
 		assertFalse(friend3.getSubscribers().contains(friend2.getEmail())); //check friend2 is not subscribed to friend3 as friend2 has blocked friend3
