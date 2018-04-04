@@ -126,6 +126,7 @@ public class ActionHandler {
 					success = false;
 				}
 			}
+			break;
 		case BLOCK_USER:
 			if(request.get(KEY_REQUESTOR) != null && request.get(KEY_TARGET) != null) {
 				String requestor = request.get(KEY_REQUESTOR).toString();
@@ -135,6 +136,7 @@ public class ActionHandler {
 			}else {
 				success = false;
 			}
+			break;
 		case SUBSCRIBE_USER:
 			if(request.get(KEY_REQUESTOR) != null && request.get(KEY_TARGET) != null) {
 				String requestor = request.get(KEY_REQUESTOR).toString();
@@ -144,6 +146,7 @@ public class ActionHandler {
 			}else {
 				success = false;
 			}
+			break;
 		case GET_RECIPIENTS:
 			if(request.get(KEY_SENDER) != null && request.get(KEY_TEXT) != null) {
 				String sender = request.get(KEY_SENDER).toString();
@@ -155,6 +158,7 @@ public class ActionHandler {
 			}else {
 				success = false;
 			}
+			break;
 		default:
 			break;
 		}
