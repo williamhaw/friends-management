@@ -3,6 +3,8 @@ package com.williamhaw.friendmanagement.user;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.bson.codecs.pojo.annotations.BsonId;
+
 /**
  * This class represents a default User that contains an email, 
  * Set<String> of friend emails, Set<String> of blocked emails
@@ -12,10 +14,15 @@ import java.util.Set;
  *
  */
 public class DefaultUser implements User{
+	@BsonId
 	private String email;
 	private Set<String> friends = new HashSet<>();
 	private Set<String> blocked = new HashSet<>();
 	private Set<String> subscribers = new HashSet<>();
+	
+	protected DefaultUser() {
+		//Added to allow serialisation
+	}
 	
 	public DefaultUser(String email) {
 		this.email = email;
@@ -40,6 +47,10 @@ public class DefaultUser implements User{
 	public Set<String> getFriends() {
 		return friends;
 	}
+	
+	public void setFriends(Set<String> friends) {
+		this.friends = friends;
+	}
 
 	@Override
 	public void addFriend(String friendEmail) {
@@ -55,6 +66,10 @@ public class DefaultUser implements User{
 	public Set<String> getBlocked() {
 		return blocked;
 	}
+	
+	public void setBlocked(Set<String> blocked) {
+		this.blocked = blocked;
+	}
 
 	@Override
 	public void addBlocked(String toBlock) {
@@ -69,6 +84,10 @@ public class DefaultUser implements User{
 	@Override
 	public Set<String> getSubscribers() {
 		return subscribers;
+	}
+	
+	public void setSubscribers(Set<String> subscribers) {
+		this.subscribers = subscribers;
 	}
 
 	@Override

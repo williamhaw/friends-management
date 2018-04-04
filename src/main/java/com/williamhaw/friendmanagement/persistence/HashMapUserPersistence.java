@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.williamhaw.friendmanagement.user.User;
+import com.williamhaw.friendmanagement.util.PropertiesHelper;
 
 /**
  * Implements in-memory storage of User instances
@@ -13,6 +14,12 @@ import com.williamhaw.friendmanagement.user.User;
 public class HashMapUserPersistence implements UserPersistence{
 	
 	Map<String, User> users = new HashMap<>();
+	
+	@Override
+	public void initialise(PropertiesHelper props) {
+		// No initialisation needed
+		System.out.println("HashMapUserPersistence initialised");
+	}
 
 	@Override
 	public synchronized boolean add(User user) throws PersistenceException {
@@ -41,5 +48,4 @@ public class HashMapUserPersistence implements UserPersistence{
 		users.remove(user.getEmail());
 		return true;
 	}
-
 }

@@ -1,13 +1,14 @@
 package com.williamhaw.friendmanagement.persistence;
 
 import com.williamhaw.friendmanagement.user.User;
+import com.williamhaw.friendmanagement.util.Initialisable;
 
 /**
  * Create, Read, Update and Remove Users from persistence implementations
  * @author williamhaw
  *
  */
-public interface UserPersistence {
+public interface UserPersistence extends Initialisable{
 
 	/**
 	 * @param user

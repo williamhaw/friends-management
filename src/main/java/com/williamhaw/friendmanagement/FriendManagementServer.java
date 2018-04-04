@@ -8,7 +8,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import com.williamhaw.friendmanagement.actions.ActionHandler;
 import com.williamhaw.friendmanagement.actions.ActionHandler.Actions;
-import com.williamhaw.friendmanagement.persistence.HashMapUserPersistence;
+import com.williamhaw.friendmanagement.persistence.UserPersistence;
 import com.williamhaw.friendmanagement.servlets.FriendManagementServlet;
 import com.williamhaw.friendmanagement.util.PropertiesHelper;
 
@@ -22,6 +22,7 @@ public class FriendManagementServer {
 	public final static String SERVER_PORT = "server.port";
 	public final static String CONTEXT_PATH = "context.path";
 	public final static String ROUTE_PREFIX = "route.";
+	public final static String PERSISTENCE_CLASS = "persistence.class";
 	
 	PropertiesHelper props;
 
@@ -39,7 +40,10 @@ public class FriendManagementServer {
 			
 			Map<String, String> routeMap = props.getStrings(ROUTE_PREFIX);
 			
-			ActionHandler handler = new ActionHandler(new HashMapUserPersistence());
+			UserPersistence persistence = (UserPersistence) Class.forName(props.getString(PERSISTENCE_CLASS, "com.williamhaw.friendmanagement.persistence.MongoDBUserPersistence")).newInstance();
+			persistence.initialise(props);
+			
+			ActionHandler handler = new ActionHandler(persistence);
 			
 			for(String routeConfig : routeMap.keySet()) {
 				String route = routeConfig.replace(ROUTE_PREFIX, "");
